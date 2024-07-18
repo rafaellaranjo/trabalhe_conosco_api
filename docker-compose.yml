@@ -21,3 +21,11 @@ services:
       - ./:/var/www/html
     depends_on:
       - php
+
+  phpunit:
+    image: php:8.0-cli
+    container_name: phpunit-container
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ["vendor/bin/phpunit"]

@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
+require_once './controllers/AuthController.php';
 require_once './controllers/UserController.php';
 require_once './controllers/JobController.php';
 require_once './controllers/CandidateController.php';
@@ -19,6 +20,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 $defaultLimit = 20;
 
 $router = [
+    '/auth' => AuthController::class,
     '/users' => UserController::class,
     '/jobs' => JobController::class,
     '/candidates' => CandidateController::class,
@@ -36,6 +38,8 @@ if (array_key_exists("/$resource", $router)) {
             $data = json_decode(file_get_contents('php://input'), true);
             if ($resourceId === null) {
                 $result = $controller->create($data);
+            } else if ($resourceId == 'signin') {
+                $result = $controller->signin($data);
             } else {
                 echo json_encode(['error' => 'Invalid request']);
                 exit;

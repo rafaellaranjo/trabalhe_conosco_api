@@ -10,6 +10,9 @@ RUN apt-get update && apt-get install -y \
 # Instala o Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Instala o PHPUnit globalmente
+RUN composer global require phpunit/phpunit ^9.0
+
 # Adiciona o Composer global ao PATH
 ENV PATH="/root/.composer/vendor/bin:${PATH}"
 

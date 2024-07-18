@@ -18,7 +18,7 @@ class UserRepository extends Repository {
         return self::$instance;
     }
 
-    public function login($username, $password) {
+    public function signin($username, $password) {
         $db = Database::getInstance();
         $conn = $db->getConnection();
 
